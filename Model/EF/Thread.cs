@@ -23,5 +23,7 @@ namespace Model.EF
         public int time_to_do { get; set; }
 
         public bool thread_status { get; set; }
+
+        public int essay_score { get; set; }
     }
 }
