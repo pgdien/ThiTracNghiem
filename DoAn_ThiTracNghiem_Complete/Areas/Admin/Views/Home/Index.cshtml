@@ -8,7 +8,6 @@
 
     <!-- Morris Chart Css-->
     <link href="/Assets/admin/plugins/morrisjs/morris.css" rel="stylesheet" />
-
     <style>
         div#notice h1, h2, h3 {
             font-weight: 400;
@@ -119,7 +118,7 @@
     <!-- #END# Widgets -->
     @if (ViewBag.permission == 0)
     {
-            <!-- Notice -->
+        <!-- Notice -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -146,11 +145,11 @@
                 </div>
             </div>
         </div>
-    <!-- #END# Notice -->
+        <!-- #END# Notice -->
     }
     else
     {
-          <!-- CKEditor -->
+        <!-- CKEditor -->
         <div class="row clearfix">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -187,7 +186,7 @@
                         @using (Html.BeginForm())
                         {
 
-                            <button type="submit" class="btn bg-orange waves-effect" style="margin-bottom: 10px;">
+                            <button type="submit" class="btn bg-orange waves-effect" style="margin-bottom: 10px; " onclick="CopyPaste()">
                                 <i class="material-icons">save</i>
                                 <span>Lưu</span>
                             </button>
@@ -201,12 +200,11 @@
                 </div>
             </div>
         </div>
-    <!-- #END# CKEditor -->
+        <!-- #END# CKEditor -->
     }
 
 
 </div>
-
 
 
 
@@ -227,5 +225,6 @@
 <script src="/Assets/admin/js/admin.js"></script>
 <script src="~/Assets/admin/plugins/ckeditor/ckeditor.js"></script>
 <script src="/Assets/admin/js/pages/index.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
 <!-- Demo Js -->
 <script src="/Assets/admin/js/demo.js"></script>

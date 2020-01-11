@@ -1,0 +1,199 @@
+﻿
+@model Model.EF.Question
+
+
+@{
+    ViewBag.Title = "Thêm ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section css
+    {
+
+    <!-- Wait Me Css -->
+    <link href="/Assets/admin/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <!-- Bootstrap Select Css -->
+    <link href="/Assets/admin/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="/Assets/admin/css/style.css" rel="stylesheet">
+
+}
+@section title
+{
+    <title>Thêm câu hỏi cho môn @TempData["subject_name"]</title>
+}
+
+<div class="block-header">
+
+</div>
+<!-- ADD FORM -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    THÊM CÂU HỎI CHO MÔN @TempData["subject_name"].ToString().ToUpper()
+                </h2>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm("QCreate", "Subject", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input data-val="true" id="id_subject" name="id_subject" type="hidden" value="@TempData["id_subject"]" />
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                        @*chon chuyên đề*@
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Tên chuyên đề</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7" style="padding-left: 0px;">
+
+                                <div class="form-line">
+                                    @Html.DropDownListFor(model => model.id_thematic, null,
+                                       new { @class = "form-control show-tick", data_live_search = "true" })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.id_thematic, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        @*noi dung cau hỏi*@
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Nội dung câu hỏi</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    @if (ViewBag.Error == 1)
+                                    {
+                                        <div class="alert alert-danger">
+                                            Đã có lỗi xảy ra.
+                                        </div>
+                                    }
+                                    else if (ViewBag.Error == -1)
+                                    {
+                                        <div class="alert alert-success">
+                                            Lưu thành công.
+                                        </div>
+                                    }
+                                    <textarea id="ckeditor" name="question_content">
+                                      
+                                    </textarea>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        @*img*@
+                        <input data-val="true" id="file" name="file" type="hidden" value="" />
+                        @* đáp án A *@
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Đáp án</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => model.A, "", new { @class = "text-danger" })
+                                    @Html.TextAreaFor(model => model.A,  new { @class = "form-control", @required = "required", @autocomplete = "off", @id = "ckeditor1"   }  )
+                                </div>
+                            </div>
+                        </div>
+                        @* đáp án B *@
+                        <input data-val="true" id="B" name="B" type="hidden" value="-1" />
+                        @* đáp án C *@
+                        <input data-val="true" id="C" name="C" type="hidden" value="-1" />
+                        @* đáp án D *@
+                        <input data-val="true" id="D" name="D" type="hidden" value="-1" />
+                        @* đáp án đúng *@
+                        <input data-val="true" id="correct_answer" name="correct_answer" type="hidden" value="-1" />
+                        @*thay đổi không *@
+                        <input data-val="true" id="is_change" name="is_change" type="hidden" value="0" />
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+
+                    <a href="/Admin/Subject/QDetail/@TempData["id_subject"]" class="btn bg-light-blue waves-effect"><i class="material-icons">navigate_before</i><span>Trở về</span></a>
+                    <a href="/Admin/Subject/AddQuest/@TempData["id_subject"]" class="btn btn-info waves-effect"><i class="material-icons">file_upload</i><span>Tải lên tệp câu hỏi</span></a>
+
+                </div>
+            </div>
+            <!--#BODY-->
+        </div>
+    </div>
+</div>
+
+<!-- #END# ADD FORM -->
+<!-- Jquery Core Js -->
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="/Assets/admin/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Select Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="/Assets/admin/plugins/node-waves/waves.js"></script>
+<!-- Autosize Plugin Js -->
+<script src="/Assets/admin/plugins/autosize/autosize.js"></script>
+<!-- Moment Plugin Js -->
+<script src="/Assets/admin/plugins/momentjs/moment.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Custom Js -->
+<!-- <script src="~/Assets/admin/js/pages/QEssayCreate.js"></script> -->
+<script src="/Assets/admin/js/admin.js"></script>
+
+@if (TempData["NoticeMessage"] != null)
+{
+
+
+    <script>
+    $.notify({
+
+        title: '<strong>Thông báo: </strong> ',
+        message: '@TempData["NoticeMessage"]'
+    }, {
+        type: '@TempData["NoticeType"]',
+        delay: 3000,
+        template: '<div data-notify="container" class="col-xs-11 col-sm-2 alert alert-{0}" role="alert">' +
+            '<span data-notify="title">{1}</span>' +
+            '<span data-notify="message">{2}</span>' +
+        '</div>'
+    });
+    </script>
+
+}
+<script src="~/Assets/admin/plugins/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script>
+    //CKEditor
+    CKEDITOR.replace('ckeditor', {
+        htmlEncodeOutput: true
+    });
+    CKEDITOR.config.height = 300;
+    CKEDITOR.config.extraPlugins = 'mathjax';
+    CKEDITOR.config.mathJaxLib = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
+</script>
+
+<script>
+    //CKEditor
+    CKEDITOR.replace('ckeditor1', {
+        htmlEncodeOutput: true
+    });
+    CKEDITOR.config.height = 300;
+    CKEDITOR.config.extraPlugins = 'mathjax';
+    CKEDITOR.config.mathJaxLib = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
+</script>
+
+<!-- Demo Js -->
+<script src="/Assets/admin/js/demo.js"></script>

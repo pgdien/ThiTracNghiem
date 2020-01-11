@@ -14,6 +14,8 @@
     });
     CKEDITOR.config.height = 300;
 
+CKEDITOR.config.extraPlugins = 'mathjax';
+CKEDITOR.config.mathJaxLib = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
 });
 
 //var realtime = 'on';

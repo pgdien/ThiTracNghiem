@@ -1,5 +1,5 @@
 ﻿/**
- * @license Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2020, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/license
  */
 
@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/6102597e5fdcd9f7311aa93fd9a971af
+ * (2) https://ckeditor.com/cke4/builder/a3f612d5036c1f3024f17cf6d68b5f65
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/6102597e5fdcd9f7311aa93fd9a971af
+ * (3) https://ckeditor.com/cke4/builder/download/a3f612d5036c1f3024f17cf6d68b5f65
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -52,11 +52,8 @@ var CKBUILDER_CONFIG = {
 		'tests'
 	],
 	plugins : {
-		'a11yhelp' : 1,
-		'about' : 1,
 		'basicstyles' : 1,
 		'bidi' : 1,
-		'blockquote' : 1,
 		'clipboard' : 1,
 		'colorbutton' : 1,
 		'colordialog' : 1,
@@ -76,7 +73,6 @@ var CKBUILDER_CONFIG = {
 		'forms' : 1,
 		'horizontalrule' : 1,
 		'htmlwriter' : 1,
-		'iframe' : 1,
 		'image' : 1,
 		'indentblock' : 1,
 		'indentlist' : 1,
@@ -89,30 +85,23 @@ var CKBUILDER_CONFIG = {
 		'maximize' : 1,
 		'newpage' : 1,
 		'pagebreak' : 1,
-		'pastefromword' : 1,
-		'pastetext' : 1,
 		'preview' : 1,
 		'print' : 1,
 		'removeformat' : 1,
 		'resize' : 1,
 		'save' : 1,
-		'scayt' : 1,
 		'selectall' : 1,
-		'showblocks' : 1,
 		'showborders' : 1,
 		'smiley' : 1,
 		'sourcearea' : 1,
 		'specialchar' : 1,
-		'stylescombo' : 1,
 		'tab' : 1,
 		'table' : 1,
-		'tableselection' : 1,
 		'tabletools' : 1,
 		'templates' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
 		'uploadimage' : 1,
-		'wsc' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {

@@ -179,3 +179,5 @@ D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_C
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.csproj.CopyComplete
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.pdb
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.dll
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.xml

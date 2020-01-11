@@ -19,3 +19,14 @@ G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\Model\obj\Debug\Model.c
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\Model\obj\Debug\Model.csproj.CopyComplete
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\Model\obj\Debug\Model.dll
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\Model\obj\Debug\Model.pdb
+D:\CODE\ThiTracNghiem\Model\bin\Debug\Model.dll.config
+D:\CODE\ThiTracNghiem\Model\bin\Debug\Model.dll
+D:\CODE\ThiTracNghiem\Model\bin\Debug\Model.pdb
+D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.dll
+D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.xml
+D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.csproj.CopyComplete
+D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.dll
+D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.pdb
