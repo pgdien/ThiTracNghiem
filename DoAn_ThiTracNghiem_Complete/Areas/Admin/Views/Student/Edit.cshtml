@@ -1,0 +1,211 @@
+﻿
+
+
+@model Model.EF.Student
+@using Model.EF;
+
+
+@{
+    var student = Model as Student;
+    ViewBag.Title = "Cập nhật sinh viên";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section css
+    {
+
+    <!-- Wait Me Css -->
+    <link href="/Assets/admin/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <!-- Bootstrap Select Css -->
+    <link href="/Assets/admin/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="/Assets/admin/css/style.css" rel="stylesheet">
+    <!-- Bootstrap DatePicker Css -->
+    <link href="/Assets/admin/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
+
+}
+@section title
+{
+    <title>Cập nhật thông tin sinh viên</title>
+}
+
+<div class="block-header">
+
+</div>
+<!-- ADD FORM -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    CẬP NHẬT THÔNG TIN SINH VIÊN
+                </h2>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.id_student)
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Họ tên</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Html.EditorFor(model => model.student_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền tên sinh viên", @required = "required" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.student_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Tài khoản</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền tên đăng nhập cho sinh viên", @required = "required" } })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Mật khẩu</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input class="form-control" data-val="true" data-val-length="" data-val-length-max="50" id="password" name="password" placeholder="Để trống nếu không muốn đổi mật khẩu" type="password" value="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Tên lớp</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7" style="padding-left: 0px;">
+
+                                <div class="form-line">
+                                    @Html.DropDownListFor(model => model.id_class, null,
+                                       new { @class = "form-control show-tick", data_live_search = "true" })
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.id_class, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Ngày sinh</label>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <div class="form-line" id="bs_datepicker_container">
+                                        <input type="text" class="form-control" autocomplete="off" placeholder="Chọn ngày sinh." id="student_birtday" name="student_birtday" value="@student.student_birtday.Value.ToString("MM/dd/yyyy")">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Giới tính</label>
+                            </div>
+                            <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
+                                <div class="col-sm-10" style="padding-left: 0px;">
+                                    <select name="student_gender" id="student_gender" required>
+                                        @if (student != null && student.student_gender == true)
+                                        {
+                                            <option value="True" selected>Nam</option>
+                                            <option value="False">Nữ</option>
+                                        }
+                                        else if (student != null && student.student_gender == false)
+                                        {
+                                            <option value="True">Nam</option>
+                                            <option value="False" selected>Nữ</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="True" selected>Nam</option>
+                                            <option value="False">Nữ</option>
+                                        }
+                                    </select>
+
+                                </div>
+                                @Html.ValidationMessageFor(model => model.student_gender, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-sm-6">
+                                <button type="submit" class="btn bg-orange waves-effect">
+                                    <i class="material-icons">save</i>
+                                    <span>Lưu</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row clearfix">
+
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    <a href="/Admin/Student/" class="btn bg-light-blue waves-effect"><i class="material-icons">navigate_before</i><span>Trở về</span></a>
+                </div>
+            </div>
+            <!--#BODY-->
+        </div>
+    </div>
+</div>
+
+<!-- #END# ADD FORM -->
+<!-- Jquery Core Js -->
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="/Assets/admin/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Select Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="/Assets/admin/plugins/node-waves/waves.js"></script>
+<!-- Autosize Plugin Js -->
+<script src="/Assets/admin/plugins/autosize/autosize.js"></script>
+<!-- Moment Plugin Js -->
+<script src="/Assets/admin/plugins/momentjs/moment.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+<!-- Bootstrap Datepicker Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<!-- Bootstrap Material Datetime Picker Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<!-- Custom Js -->
+<script src="/Assets/admin/js/admin.js"></script>
+<script src="/Assets/admin/js/pages/forms/basic-form-elements.js"></script>
+@if (TempData["NoticeMessage"] != null)
+{
+
+
+    <script>
+        $.notify({
+
+            title: '<strong>Thông báo: </strong> ',
+            message: '@TempData["NoticeMessage"]'
+        }, {
+            type: '@TempData["NoticeType"]',
+            delay: 3000,
+            template: '<div data-notify="container" class="col-xs-11 col-sm-2 alert alert-{0}" role="alert">' +
+                '<span data-notify="title">{1}</span>' +
+                '<span data-notify="message">{2}</span>' +
+            '</div>'
+        });
+    </script>
+
+}
+
+<!-- Demo Js -->
+<script src="/Assets/admin/js/demo.js"></script>

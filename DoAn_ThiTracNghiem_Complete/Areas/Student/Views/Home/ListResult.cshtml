@@ -1,0 +1,107 @@
+﻿@using Model.ViewModel;
+@{
+    ViewBag.Title = "Danh Sách Kết Quả Thi";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+    var List = Model as List<ResultViewModel>;
+}
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<div class="content row col s12">
+    @using (Html.BeginForm("DeleteClass", "Admin", FormMethod.Post))
+    {
+        <table class="striped centered" id="classes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên kì thi</th>
+                    <th>Tên môn thi</th>
+                    <th>Số câu hỏi tối đa</th>
+                    <th>Thời gian</th>
+                    <th>Điểm</th>
+                    <th>Chi tiết</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in List)
+                {
+                    <tr>
+                        <td>@item.thread.id_thread</td>
+                        <td>@item.thread.thread_name</td>
+                        <td>@item.subject.subject_name</td>
+                        <td>@item.thread.max_question</td>
+                        <td>@item.thread.time_to_do</td>
+                        <td>@item.student_info.score_number</td>
+                        <td>
+                            <a href="@Url.Action("TestResult/" + item.thread.id_thread)"><i class="material-icons">call_made</i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    $('.tabs').tabs();
+    $('.modal').modal();
+    $('#classes-table').DataTable({
+        "language": {
+            "lengthMenu": "Hiển thị _MENU_",
+            "zeroRecords": "Không tìm thấy",
+            "info": "Hiển thị trang _PAGE_/_PAGES_",
+            "infoEmpty": "Không có dữ liệu",
+            "emptyTable": "Không có dữ liệu",
+            "infoFiltered": "(tìm kiếm trong tất cả _MAX_ mục)",
+            "sSearch": "Tìm kiếm",
+            "paginate": {
+                "first": "Đầu",
+                "last": "Cuối",
+                "next": "Sau",
+                "previous": "Trước"
+            }
+        },
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [4 , 5] }
+        ]
+    });
+    $('select').select();
+    $('#checked-all').on('change', function () {
+        if (this.checked) {
+            $('.checkbox').each(function () {
+                this.checked = true;
+            });
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        } else {
+            $('.checkbox').each(function () {
+                this.checked = false;
+            });
+            $('#icon-settings').removeClass('hidden');
+            $('#icon-delete-all').addClass('hidden');
+        }
+    });
+    function check_box() {
+        $('#icon-delete-all').removeClass('hidden');
+        if ($('.checkbox:checked').length == $('.checkbox').length) {
+            $('#checked-all').prop('checked', true);
+        } else {
+            $('#checked-all').prop('checked', false);
+        }
+        if ($('.checkbox:checked').length == 0) {
+            $('#icon-delete-all').addClass('hidden');
+            $('#icon-settings').removeClass('hidden');
+        } else {
+            $('#icon-settings').addClass('hidden');
+            $('#icon-delete-all').removeClass('hidden');
+        }
+    }
+</script>

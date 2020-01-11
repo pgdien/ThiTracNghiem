@@ -1,0 +1,60 @@
+﻿@model List<Model.ViewModel.RoomViewModel>
+@{
+    ViewBag.Title = "Chọn phòng thi";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+
+}
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<div class="content row col s12 reset-margin">
+    @foreach (var item in Model)
+    {
+        if (item.thread.thread_status)
+        {
+            int i = 68000 + item.thread.id_thread;
+            string code = "HLU.CNTT." + i.ToString();
+            <div class="col s6 m4 l3">
+                <div class="dashboard-inner-item" style="padding: 10px;">
+                    <span class="title">Tên phòng: <b>@item.room.room_name</b></span><br />
+                    <span class="title">Mã kỳ thi: <b>@code</b></span><br />
+                    <span class="title">Kỳ thi: <b>@item.thread.thread_name</b></span><br />
+                    <span class="title">Số câu hỏi: <b>@item.thread.max_question</b></span><br />
+                    <span class="title">Thời gian: <b>@item.thread.time_to_do (phút)</b></span><br />
+                    <a href="#enter-test-@item.room.id_room" class="btn full-width modal-trigger" data-code="@item.room.id_room" id="enter-ex">Làm bài</a>
+
+
+                </div>
+            </div>
+              <!-- Modal Structure -->
+            using (Html.BeginForm("CheckPassword", "Home", FormMethod.Post))
+            {
+                <div id="enter-test-@item.room.id_room" class="modal">
+                    <div class="modal-content">
+                        <h4>Nhập Mật Khẩu Phòng Thi @item.room.room_name</h4>
+                        <input type="text" name="id_room" value="@item.room.id_room" hidden>
+                        <div class="input-field">
+                            <label for="email">Mật Khẩu<span class="failed">(*)</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="modal-close waves-effect waves-green btn-flat">Hủy</a>
+                        <button type="submit" class="modal-close waves-effect waves-green btn-flat">Xác nhận</button>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+<script>
+    $('.modal').modal();
+</script>

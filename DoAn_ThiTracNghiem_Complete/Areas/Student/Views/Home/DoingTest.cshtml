@@ -1,0 +1,237 @@
+﻿
+@using Model.ViewModel;
+@{
+    var list = Model as List<StudentQuestViewModel>;
+    ViewBag.Title = "Làm Bài Thi " + list.FirstOrDefault().thread.thread_name;
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+}
+<div class="title-content">
+    <span class="title" style="padding-left: 115px;">@ViewBag.Title</span>
+    <span id="timer" class="timer timer-fixed">@ViewBag.min : @ViewBag.sec</span>
+</div>
+<div class="content row col s12 reset-margin" style="padding:0;">
+    <div class="testing-left scrollbar">
+        @{
+            int i = 1;
+            foreach (var item in list)
+            {
+                if (item.student_thread.student_answer != null)
+                {
+                    <a href="#quest-@i" class="menu-link">Câu @i <span class="tick" id="tick-@i">✓</span></a>
+                }
+                else
+                {
+                    <a href="#quest-@i" class="menu-link">Câu @i <span class="tick" id="tick-@i"></span></a>
+                }
+                i = i + 1;
+            }
+        }
+    </div>
+    <div class="testing-right">
+        @{
+            int x = 1;
+            foreach (var item in list)
+            {
+
+                //if (item.student_thread.id_student == ViewBag.idStudent && item.student_thread.id_exam == ViewBag.idExam)
+                //{
+                <div id="quest-@x" class="item-quest">
+                    <div class="quest-title">Câu @x :</div>
+                    <div class="quest-content">
+                        <span>@item.question_exam.question_content</span>
+
+                        @if (item.question_exam.img != null && item.question_exam.img.Length > 0)
+                        {
+                            <small class="title">(Câu hỏi có nội dung ảnh)</small>
+                                    <img src="~/Assets/img_questions/@item.question_exam.img" style="max-width:700px" />
+                        }
+                    </div>
+                    <div class="quest-answer">
+                        <p>
+                            <label>
+                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.A.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.A.Trim()" checked />
+                                }
+                                else
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.A.Trim()" />
+                                }
+                                <span>@item.question_exam.A</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.B.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.B.Trim()" checked />
+                                }
+                                else
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.B.Trim()" />
+                                }
+                                <span>@item.question_exam.B</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.C.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.C.Trim()" checked />
+                                }
+                                else
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.C.Trim()" />
+                                }
+                                <span>@item.question_exam.C</span>
+                            </label>
+                        </p>
+                        <p>
+                            <label>
+                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.D.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.D.Trim()" checked />
+                                }
+                                else
+                                {
+                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.D.Trim()" />
+                                }
+                                <span>@item.question_exam.D</span>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+                x = x + 1;
+                //}
+            }
+        }
+
+        <a href="@Url.Action("SubmitTest")" class="btn flat" style="margin-left: 40%;width: 30%;margin-top: 20px;margin-bottom: 10px;" onclick="return confirm('Xác nhận nộp bài?')">Nộp Bài</a>
+    </div>
+</div>
+<script>
+    var min = @ViewBag.min;
+    var sec = @ViewBag.sec;
+    countdown();
+
+    function countdown() {
+        cdID = setInterval(function () {
+            var s=5;
+            if (sec == 0) {
+                min--;
+                sec = 60;
+            }
+            sec--;
+            if (min < 10) {
+                $('#timer').css('color', 'red');
+                min_text = '0' + min;
+            } else {
+                min_text = min;
+            }
+            if (sec < 10)
+                sec_text = '0' + sec;
+            else
+                sec_text = sec;
+            $('#timer').text(min_text + ':' + sec_text);
+            if (min < 0) {
+                Notice();
+                @*alert('Hết giờ, hệ thống sẽ tự động nộp bài!');
+                window.location.replace("@Url.Action("SubmitTest")");*@
+            }
+        }, 1000);
+    }
+    function Redirect() {
+        window.location="@Url.Action("SubmitTest")";
+    }
+    function Notice(s){
+        document.write("Hết giờ, hệ thống sẽ tự động nộp bài <br>");
+        setTimeout('Redirect()', 5000);
+    }
+
+    $(function () {
+        $('input[type=radio]').change(function () {
+            var stt = $(this).data("stt");
+            var idquest = $(this).data("idquest");
+            var value = $(this).val();
+            var data = {
+                id: idquest,
+                answer: value,
+                min: min,
+                sec: sec
+            }
+            var url = "@Url.Action("UpdateStudentTest")";
+            var success = function (result) {
+                $('#tick-' + stt).text("✓");
+            };
+            $.post(url, data, success);
+        })
+    })
+    $(window).scroll(function () {
+        $('#footer').css("display", "none");
+        if (window.pageYOffset > 30) {
+            $('.testing-left').css("top", "65px").css("height", "calc(100% - 65px)");
+            $('#timer').css("margin-top", "0px");
+        }
+        if (window.pageYOffset < 30) {
+            $('.testing-left').css("top", "95px").css("height", "calc(100% - 95px)");
+            $('#timer').css("margin-top", "30px");
+        }
+    });
+    //jQuery for Page Scroll - Single page
+    $('a[href*="#"]:not([href="#"])').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            if (target.length) {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 65
+                }, 500);
+                return false;
+            }
+        }
+    });
+    window.onbeforeunload = function () {
+        var url = "@Url.Action("UpdateTiming")"
+        var data = {
+            min: min,
+            sec: sec
+        }
+        var success = function () {};
+        $.post(url, data, success);
+    }
+</script>
+<script>
+
+    var focustab= 0;
+
+    setInterval(function() {
+        var url = "@Url.Action("UpdateFocusTab")"
+        var data = {
+            "focustab": focustab
+        }
+
+        var success = function () {
+        };
+        $.post(url, data, success);
+        focustab= 0;
+    }, 1000 * 2);
+
+    $(window).on("blur focus", function(e) {
+        var prevType = $(this).data("prevType");
+
+        if (prevType != e.type) {   //  reduce double fire issues
+            switch (e.type) {
+                case "blur":
+                    focustab++;
+                    break;
+                case "focus":
+                    break;
+            }
+        }
+
+        $(this).data("prevType", e.type);
+        /////////////////////////
+
+
+    })
+</script>

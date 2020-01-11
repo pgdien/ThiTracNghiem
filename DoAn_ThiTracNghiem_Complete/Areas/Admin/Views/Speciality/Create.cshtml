@@ -1,0 +1,125 @@
+﻿
+
+@model Model.EF.Speciality
+
+@{
+    ViewBag.Title = "Tạo ngành học";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section css
+    {
+
+    <!-- Wait Me Css -->
+    <link href="/Assets/admin/plugins/waitme/waitMe.css" rel="stylesheet" />
+    <!-- Bootstrap Select Css -->
+    <link href="/Assets/admin/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="/Assets/admin/css/style.css" rel="stylesheet">
+
+}
+@section title
+{
+    <title>Thêm mới một ngành học</title>
+}
+
+<div class="block-header">
+
+</div>
+<!-- ADD FORM -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    THÊM NGÀNH ĐÀO TẠO
+                </h2>
+            </div>
+            <div class="body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Tên ngành</label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        @Html.EditorFor(model => model.speciality_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền tên ngành học", @required = "required" } })
+
+                                    </div>
+
+                                    @Html.ValidationMessageFor(model => model.speciality_name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <button type="submit" class="btn bg-orange waves-effect">
+                                <i class="material-icons">save</i>
+                                <span>Lưu</span>
+                            </button>
+                        </div>
+                        <div class="row clearfix">
+                            <div class="col-sm-6">
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    <a href="/Admin/Speciality/" class="btn bg-light-blue waves-effect"><i class="material-icons">navigate_before</i><span>Trở về</span></a>
+                </div>
+            </div>
+            <!--#BODY-->
+        </div>
+    </div>
+</div>
+
+<!-- #END# ADD FORM -->
+<!-- Jquery Core Js -->
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="/Assets/admin/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Select Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="/Assets/admin/plugins/node-waves/waves.js"></script>
+<!-- Autosize Plugin Js -->
+<script src="/Assets/admin/plugins/autosize/autosize.js"></script>
+<!-- Moment Plugin Js -->
+<script src="/Assets/admin/plugins/momentjs/moment.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Custom Js -->
+<script src="/Assets/admin/js/admin.js"></script>
+<script src="/Assets/admin/js/pages/forms/basic-form-elements.js"></script>
+@if (TempData["NoticeMessage"] != null)
+{
+
+
+    <script>
+    $.notify({
+
+        title: '<strong>Thông báo: </strong> ',
+        message: '@TempData["NoticeMessage"]'
+    }, {
+        type: '@TempData["NoticeType"]',
+        delay: 3000,
+        template: '<div data-notify="container" class="col-xs-11 col-sm-2 alert alert-{0}" role="alert">' +
+            '<span data-notify="title">{1}</span>' +
+            '<span data-notify="message">{2}</span>' +
+        '</div>'
+    });
+    </script>
+
+}
+
+<!-- Demo Js -->
+<script src="/Assets/admin/js/demo.js"></script>
+

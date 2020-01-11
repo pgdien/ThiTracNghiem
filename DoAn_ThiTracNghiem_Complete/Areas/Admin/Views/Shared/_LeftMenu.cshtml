@@ -1,0 +1,118 @@
+﻿
+<section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <!-- User Info -->
+        <div class="user-info">
+            <div class="image">
+                <img src="~/Assets/admin/images/user.png" width="48" height="48" alt="User" />
+            </div>
+            <div class="info-container">
+                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.AdminName</div>
+                <div class="email">@Html.ActionLink("Đăng xuất", "Logout", "Login")</div>
+                <div class="btn-group user-helper-dropdown">
+                    <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                    <ul class="dropdown-menu pull-right">
+                        <li role="separator" class="divider"></li>
+                        <li>@Html.ActionLink("Đăng xuất", "Logout", "Login")</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- #User Info -->
+        <!-- Menu -->
+        <div class="menu">
+            <ul class="list">
+                <li class="header">MENU CHÍNH</li>
+                <li class="active">
+                    <a href="/Admin/Home">
+                        <i class="material-icons">home</i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="\Admin\Speciality\">
+                        <i class="material-icons">text_fields</i>
+                        <span>Quản lý ngành học</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="\Admin\Subject">
+                        <i class="material-icons">layers</i>
+                        <span>Quản lý môn học</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="\Admin/Class">
+                        <i class="material-icons">widgets</i>
+                        <span>Quản lý lớp</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="\Admin/Student">
+                        <i class="material-icons">person</i>
+                        <span>Quản lý sinh viên</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="\Admin\AdminManager">
+                        <i class="material-icons">swap_calls</i>
+                        <span>Quản lý tài khoản hệ thống</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">assignment</i>
+                        <span>Quản lý kỳ thi</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="\Admin\Thread">Các kì thi</a>
+                        </li>
+                        <li>
+                            <a href="\Admin\Thread\OpenRoom">Coi thi</a>
+                        </li>
+                        <li>
+                            <a href="\Admin\Thread\Result">Xem kết quả thi</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="header">Cài đặt</li>
+                <li>
+                    <a href="/Admin/AdminManager/ChangePass">
+                        <i class="material-icons col-red">donut_large</i>
+                        <span>Đổi mật khẩu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons col-amber">donut_large</i>
+                        <span>Trợ giúp</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">
+                        <i class="material-icons col-light-blue">donut_large</i>
+                        <span>Thống kê (Sắp có)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- #Menu -->
+        <!-- Footer -->
+        <div class="legal">
+            <div class="copyright">
+                &copy; 2018- 2019 <a href="javascript:void(0);">HỆ THỐNG THI TRẮC NGHIỆM    </a><br />
+                <i>Khoa CNTT - Trường Đại học Hạ Long</i>
+            </div>
+            <div class="version">
+                <b>Version: </b> 1.0.0
+            </div>
+        </div>
+        <!-- #Footer -->
+    </aside>
+    <!-- #END# Left Sidebar -->
+    <!-- Right Sidebar -->
+    <!-- #END# Right Sidebar -->
+</section>

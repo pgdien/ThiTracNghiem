@@ -1,0 +1,231 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section css
+    {
+
+    <!-- Morris Chart Css-->
+    <link href="/Assets/admin/plugins/morrisjs/morris.css" rel="stylesheet" />
+
+    <style>
+        div#notice h1, h2, h3 {
+            font-weight: 400;
+        }
+    </style>
+}
+@section title
+    {
+    <title>Trang chủ</title>
+}
+
+<div class="block-header">
+    <h2>BẢNG ĐIỀU KHIỂN</h2>
+
+</div>
+<!-- Widgets -->
+<div class="row clearfix">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-pink hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">school</i>
+            </div>
+            <div class="content">
+                <div class="text">NGÀNH HỌC</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountSpeciality" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-cyan hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">subject</i>
+            </div>
+            <div class="content">
+                <div class="text">MÔN HỌC</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountSubject" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-light-green hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">class</i>
+            </div>
+            <div class="content">
+                <div class="text">LỚP HỌC</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountClass" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-indigo hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">people</i>
+            </div>
+            <div class="content">
+                <div class="text">SINH VIÊN</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountStudent" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-orange hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">question_answer</i>
+            </div>
+            <div class="content">
+                <div class="text">CÂU HỎI</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountQuestion" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-purple hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">account_circle</i>
+            </div>
+            <div class="content">
+                <div class="text">TÀI KHOẢN HỆ THỐNG</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.AdminCount" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-teal hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">local_library</i>
+            </div>
+            <div class="content">
+                <div class="text">KÌ THI MỞ</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountThread" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box bg-brown hover-expand-effect">
+            <div class="icon">
+                <i class="material-icons">beenhere</i>
+            </div>
+            <div class="content">
+                <div class="text">PHÒNG THI MỞ</div>
+                <div class="number count-to" data-from="0" data-to="@ViewBag.CountRoom" data-speed="50" data-fresh-interval="20"></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- #END# Widgets -->
+    @if (ViewBag.permission == 0)
+    {
+            <!-- Notice -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <b>THÔNG BÁO</b>
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body" id="notice" style="padding:10px; ">
+                        @Html.Raw(ViewBag.NoticeContent)
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- #END# Notice -->
+    }
+    else
+    {
+          <!-- CKEditor -->
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                    <div class="header">
+                        <h2>
+                            <b>VIẾT THÔNG BÁO </b>
+                        </h2>
+                        <ul class="header-dropdown m-r--5">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <i class="material-icons">more_vert</i>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a href="javascript:void(0);">Action</a></li>
+                                    <li><a href="javascript:void(0);">Another action</a></li>
+                                    <li><a href="javascript:void(0);">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        @if (ViewBag.Error == 1)
+                        {
+                            <div class="alert alert-danger">
+                                Đã có lỗi xảy ra.
+                            </div>
+                        }
+                        else if (ViewBag.Error == -1)
+                        {
+                            <div class="alert alert-success">
+                                Lưu thành công.
+                            </div>
+                        }
+                        @using (Html.BeginForm())
+                        {
+
+                            <button type="submit" class="btn bg-orange waves-effect" style="margin-bottom: 10px;">
+                                <i class="material-icons">save</i>
+                                <span>Lưu</span>
+                            </button>
+                            <textarea id="ckeditor" name="notice">
+                                @ViewBag.NoticeContent
+
+                            </textarea>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- #END# CKEditor -->
+    }
+
+
+</div>
+
+
+
+
+<!-- Jquery Core Js -->
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="/Assets/admin/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Select Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="/Assets/admin/plugins/node-waves/waves.js"></script>
+<!-- Jquery CountTo Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-countto/jquery.countTo.js"></script>
+
+<!-- Custom Js -->
+<script src="/Assets/admin/js/admin.js"></script>
+<script src="~/Assets/admin/plugins/ckeditor/ckeditor.js"></script>
+<script src="/Assets/admin/js/pages/index.js"></script>
+<!-- Demo Js -->
+<script src="/Assets/admin/js/demo.js"></script>

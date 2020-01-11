@@ -1,0 +1,59 @@
+﻿
+@using DoAn_ThiTracNghiem_Complete.Common
+@{
+    ViewBag.copyright = "Copyright 2019";
+    ViewBag.name = "Hệ Thống Trắc Nghiệm- Khoa CNTT";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="~/Assets/admin/favicon.ico" type="image/x-icon">
+    <title>
+        @ViewBag.Title
+    </title>
+    <link rel="stylesheet" href="~/Assets/css/normalize.css">
+    <link rel="stylesheet" href="~/Assets/css/style.min.css">
+    <link rel="stylesheet" href="~/Assets/css/font-awesome.css">
+    <link rel="stylesheet" href="~/Assets/css/materialize.min.css">
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Assets/js/materialize.min.js"></script>
+    <script>
+      function quay_lai_trang_truoc(){
+          history.back();
+      }
+    </script>
+</head>
+<body class="body-login scrollbar">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper nav-green">
+
+                <a href="/Student/Home/" class="brand-logo cursor left"><i class="material-icons" style="font-size:40px;">home</i></a>
+                <a class="brand-logo cursor left" style="margin-left: 80px; " id="backarrow" onclick="quay_lai_trang_truoc()"><i class="material-icons" style="font-size:40px;">arrow_back</i></a>
+                <div class="right" style="">
+                    <span class="title">Xin chào: @ViewBag.studenname </span>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li>@Html.ActionLink("Danh sách kết quả thi", "ListResult")</li>
+                        <li>@Html.ActionLink("Đăng xuất", "Logout")</li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    @RenderBody()
+    <div class="col l12 footer" id="footer">
+        <div class="row reset-margin">
+            <div class="col l6 s6">
+                <i id="website-copyright">@ViewBag.copyright</i>
+            </div>
+            <div class="col l6 s6 right-align">
+                <i id="website-title">@ViewBag.name</i>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

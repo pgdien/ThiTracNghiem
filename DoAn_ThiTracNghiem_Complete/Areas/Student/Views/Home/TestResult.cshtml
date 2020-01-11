@@ -1,0 +1,164 @@
+﻿
+@using Model.ViewModel;
+@using Model.EF;
+
+
+@{
+    var list = Model as List<StudentQuestViewModel>;
+    ViewBag.Title = "Chi Tiết Bài Thi " + list.First().thread.thread_name;
+    var score = ViewBag.score as Student_Thread_Info;
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+    TimeSpan? timetodo = score.end_time - score.start_time;
+    TimeSpan timetodo2 = timetodo ?? default(TimeSpan);
+}
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+</div>
+<div class="content row col s12 reset-margin" style="padding:0;">
+    <span class="title">Thời gian làm bài: <b>@Math.Round(timetodo2.TotalMinutes, 0) phút</b></span><br />
+    <span class="title">Điểm: <b style="color:red; font-size:20px;">@score.score_number</b></span>
+    <hr />
+    @*@{
+        int x = 1;
+        foreach (var item in list)
+        {
+            //if (item.student_thread.id_student == ViewBag.idStudent && item.student_thread.id_exam == ViewBag.idExam)
+            //{
+            <div id="quest-@x" class="item-quest">
+                <div class="quest-title">Câu @x :</div>
+                <div class="quest-content">
+                    <span>@item.question_exam.question_content</span>
+                    @if (!item.question.img.Equals("noimage.png"))
+                    {
+                        <small class="title">(Câu hỏi có nội dung ảnh)</small>
+                        <img src="~/Assets/img_questions/@item.question.img" style="max-width:700px" />
+                    }
+                </div>
+                <div class="quest-answer">
+                    <p>
+                        <label>
+                            @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.A.Trim()) && item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                            {
+                                <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                <span style="color:green">@item.question_exam.A</span>
+                            }
+                            else
+                            {
+                                if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.A.Trim()) && !item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                    <span style="color:red">@item.question_exam.A</span>
+                                }
+                                else
+                                {
+                                    if (item.question_exam.A.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                        <span style="color:green">@item.question_exam.A</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" disabled />
+                                        <span>@item.question_exam.A</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.B.Trim()) && item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                            {
+                                <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                <span style="color:green">@item.question_exam.B</span>
+                            }
+                            else
+                            {
+                                if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.B.Trim()) && !item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                    <span style="color:red">@item.question_exam.B</span>
+                                }
+                                else
+                                {
+                                    if (item.question_exam.B.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                        <span style="color:green">@item.question_exam.B</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" disabled />
+                                        <span>@item.question_exam.B</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.C.Trim()) && item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                            {
+                                <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                <span style="color:green">@item.question_exam.C</span>
+                            }
+                            else
+                            {
+                                if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.C.Trim()) && !item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                    <span style="color:red">@item.question_exam.C</span>
+                                }
+                                else
+                                {
+                                    if (item.question_exam.C.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                        <span style="color:green">@item.question_exam.C</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" disabled />
+                                        <span>@item.question_exam.C</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.D.Trim()) && item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                            {
+                                <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                <span style="color:green">@item.question_exam.D</span>
+                            }
+                            else
+                            {
+                                if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.D.Trim()) && !item.student_thread.student_answer.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                {
+                                    <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                    <span style="color:red">@item.question_exam.D</span>
+                                }
+                                else
+                                {
+                                    if (item.question_exam.D.Trim().Equals(item.question_exam.correct_answer.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" checked disabled />
+                                        <span style="color:green">@item.question_exam.D</span>
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" type="radio" disabled />
+                                        <span>@item.question_exam.D</span>
+                                    }
+                                }
+                            }
+                        </label>
+                    </p>
+                </div>
+            </div>
+            x = x + 1;
+            //}
+            }
+        }*@
+</div>

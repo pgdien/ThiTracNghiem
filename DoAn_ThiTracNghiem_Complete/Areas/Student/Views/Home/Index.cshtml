@@ -1,0 +1,59 @@
+﻿
+@model List<Model.ViewModel.TestViewModel>
+@{
+    ViewBag.Title = "Danh sách các kỳ thi mở";
+    Layout = "~/Areas/Student/Views/Shared/_Layout.cshtml";
+    //var ListTest = Model as List<TestViewModel>;
+    var Scores = ViewBag.score as List<int>;
+}
+<div class="title-content">
+    <span class="title">@ViewBag.Title</span>
+    @if (TempData["status_id"] != null && (bool)TempData["status_id"])
+    {
+        <span class="timer success">@TempData["status"]</span>
+    }
+    else
+    {
+        <span class="timer failed">@TempData["status"]</span>
+    }
+</div>
+<div class="content row col s12 reset-margin">
+    @foreach (var item in Model)
+    {
+        if (item.thread.thread_status && item.thread.max_question>0)
+        {
+            int i = 68000 + item.thread.id_thread;
+            string code = "HLU.CNTT." + i.ToString();
+            <div class="col s6 m4 l3">
+                <div class="dashboard-inner-item" style="padding: 10px; ">
+                    <span class="title">Môn: <b>@item.subject.subject_name</b></span><br />
+                    <span class="title">Mã kỳ thi: <b>@code</b></span><br />
+                    <span class="title">Kỳ thi: <b>@item.thread.thread_name</b></span><br />
+                    <span class="title">Số câu hỏi: <b>@item.thread.max_question</b></span><br />
+                    <span class="title">Thời gian: <b>@item.thread.time_to_do (phút)</b></span><br />
+
+
+                    @if (Scores.IndexOf(item.thread.id_thread) != -1)
+                    {
+                        <a class="btn full-width" href="@Url.Action("TestResult/" + @item.thread.id_thread)">Chi tiết bài làm</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("SelectRoom/" + @item.thread.id_thread)" class="btn full-width">Chọn phòng</a>
+                    }
+
+
+                </div>
+            </div>
+        }
+    }
+</div>
+<script language="javascript">
+    a();
+    function a() {
+        document.getElementById("backarrow").style.display = 'none';
+    };
+
+    alert(@ViewBag.studenname);
+ 
+</script>

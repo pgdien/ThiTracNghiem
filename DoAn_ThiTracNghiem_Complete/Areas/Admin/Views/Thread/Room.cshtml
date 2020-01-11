@@ -1,0 +1,251 @@
+﻿
+@model IEnumerable<Model.ViewModel.StudentThreadInfoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section css
+    {
+    <!-- JQuery DataTable Css -->
+    <link href="/Assets/admin/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <!-- Sweetalert Css -->
+    <link href="/Assets/admin/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+}
+@section title
+    {
+    <title>Giám thị phòng thi @ViewBag.RoomName</title>
+}
+
+
+
+<!-- Exportable Table -->
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    DANH SÁCH CÁC THÍ SINH TRONG PHÒNG THI @ViewBag.RoomName - THỜI GIAN CỦA ĐỀ THI LÀ @ViewBag.TimeToDo PHÚT
+                </h2>
+                <ul class="header-dropdown m-r--5">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);">Action</a></li>
+                            <li><a href="javascript:void(0);">Another action</a></li>
+                            <li><a href="javascript:void(0);">Something else here</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable">
+                        <thead>
+                            <tr>
+                                <th style="width: 3%">STT</th>
+                                <th style="width: 14%">Tên</th>
+                                <th style="width: 7%">Mã đề</th>
+                                <th style="width: 8%">Bắt đầu lúc</th>
+                                <th style="width: 8%">Kết thúc lúc</th>
+                                <th style="width: 10%">Điểm</th>
+                                <th style="width: 10%">Trạng thái</th>
+                                <th style="width: 18%">Dữ liệu Client</th>
+                                <th style="width: 12%">Số lần chuyển tab</th>
+                                <th style="width: 10%">Tùy chọn</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @*@if (Model != null)
+                                {
+                                    int i = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        string id = item.student_thread.id_exam.ToString() + "i" + @item.student.id_student;
+                                        string dataClient = "IP " + item.student.ip + " truy cập qua " + item.student.info_browser;
+                                        TimeSpan? lastOnline = DateTime.Now - item.student.last_login;
+                                        TimeSpan time = lastOnline ?? default(TimeSpan);
+
+                                        <tr id="@id">
+                                            <td>@i</td>
+                                            <td> @Html.DisplayFor(modelItem => item.student.student_name)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.student_thread.id_exam)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.student_thread.start_time)</td>
+                                            @if (item.student_thread.end_time == null)
+                                            {
+                                                <td>Chưa hoàn thành</td>
+                                            }
+
+                                            <td>@Html.DisplayFor(modelItem => item.student_thread.end_time)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.student_thread.score_number)</td>
+                                            @if (time.TotalSeconds < 10)
+                                            {
+                                                <td>
+                                                    <span class="label label-success">Đang online</span>
+                                                </td>
+
+                                            }
+                                            else
+                                            {
+                                                if (time.TotalSeconds < 60)
+                                                {
+                                                    <td>
+                                                        <span class="label label-default">Đã offline @Math.Round(time.TotalSeconds, 0) giây</span>
+                                                    </td>
+
+                                                }
+                                                else if (time.TotalMinutes < 60)
+                                                {
+                                                    <td>
+                                                        <span class="label label-default">Đã offline @Math.Round(time.TotalMinutes, 0) phút</span>
+                                                    </td>
+
+                                                }
+                                                else if (time.TotalHours < 24)
+                                                {
+                                                    <td>
+                                                        <span class="label label-default">Đã offline @Math.Round(time.TotalHours, 0) giờ</span>
+                                                    </td>
+
+                                                }
+                                                else if (time.TotalDays < 9)
+                                                {
+                                                    <td>
+                                                        <span class="label label-default">Đã offline @Math.Round(time.TotalDays, 0) ngày</span>
+                                                    </td>
+
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        <span class="label label-default">Lần online cuối @item.student.last_login</span>
+                                                    </td>
+                                                }
+                                            }
+                                            <td>@dataClient</td>
+                                            <td>@Html.DisplayFor(modelItem => item.student_thread.count_tab_focus)</td>
+                                            <td>
+
+
+                                                <a href="/Admin/Thread/SDelete/@id" class="btn btn-danger waves-effect" data-ajax="true" data-ajax-complete="$('#@id').remove()" data-ajax-confirm="Bạn có chắc xóa bản ghi này?" data-ajax-method="Delete"><i class="material-icons">delete</i> <span>Xóa</span> </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }*@
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div>
+                    <a href="/Admin/Thread/OpenRoom/" class="btn bg-light-blue waves-effect"><i class="material-icons">navigate_before</i><span>Trở về</span></a>
+                </div> <!--#BODY-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #END# Exportable Table -->
+<!-- Jquery Core Js -->
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<!-- Bootstrap Core Js -->
+<script src="/Assets/admin/plugins/bootstrap/js/bootstrap.js"></script>
+<!-- Select Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+<!-- Slimscroll Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Waves Effect Plugin Js -->
+<script src="/Assets/admin/plugins/node-waves/waves.js"></script>
+<!-- SweetAlert Plugin Js -->
+<script src="/Assets/admin/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Bootstrap Notify Plugin Js -->
+<script src="/Assets/admin/plugins/bootstrap-notify/bootstrap-notify.js"></script>
+
+<!-- Jquery DataTable Plugin Js -->
+<script src="/Assets/admin/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="/Assets/admin/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<!-- Custom Js -->
+<script src="/Assets/admin/js/admin.js"></script>
+<script src="~/Assets/admin/js/mustache.min.js"></script>
+
+<script src="/Assets/admin/js/pages/ui/dialogs.js"></script>
+<script>
+  var table=  $('.js-exportable').DataTable({
+        dom: 'Bfrtip',
+        responsive: true,
+        buttons: [
+            {
+                extend: 'copy',
+                text: 'Copy',
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+			{
+			    extend: 'excel',
+			    text: 'Excel',
+			    exportOptions: {
+			        columns: ':not(.notexport)'
+			    }
+			}
+
+        ],
+        ajax: '/Admin/Thread/GetJsonData/@ViewBag.Id',
+        columns: [
+               { "data": "id" },
+            { "data": "student_name" },
+            { "data": "id_exam" },
+            { "data": "start_time" },
+
+            { "data": "end_time" },
+              { "data": "score" },
+            { "data": "status" },
+            { "data": "data_client" },
+            { "data": "changetab" },
+            { "data": "action" }
+
+        ]
+    });
+
+  setInterval(function () {
+      table.ajax.reload();
+  }, 5000);
+
+</script>
+
+@if (TempData["NoticeMessage"] != null)
+{
+
+
+    <script>
+        $.notify({
+
+            title: '<strong>Thông báo: </strong> ',
+            message: '@TempData["NoticeMessage"]'
+        }, {
+            type: '@TempData["NoticeType"]',
+            delay: 3000,
+            template: '<div data-notify="container" class="col-xs-11 col-sm-2 alert alert-{0}" role="alert">' +
+                '<span data-notify="title">{1}</span>' +
+                '<span data-notify="message">{2}</span>' +
+            '</div>'
+        });
+    </script>
+
+}
+<!-- Demo Js -->
+<script src="/Assets/admin/js/demo.js"></script>
