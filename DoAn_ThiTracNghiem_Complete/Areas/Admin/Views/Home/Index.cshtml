@@ -186,13 +186,12 @@
                         @using (Html.BeginForm())
                         {
 
-                            <button type="submit" class="btn bg-orange waves-effect" style="margin-bottom: 10px; " onclick="CopyPaste()">
+                            <button type="submit" class="btn bg-orange waves-effect" style="margin-bottom: 10px; ">
                                 <i class="material-icons">save</i>
                                 <span>Lưu</span>
                             </button>
                             <textarea id="ckeditor" name="notice">
                                 @ViewBag.NoticeContent
-
                             </textarea>
                         }
 
@@ -224,7 +223,8 @@
 <!-- Custom Js -->
 <script src="/Assets/admin/js/admin.js"></script>
 <script src="~/Assets/admin/plugins/ckeditor/ckeditor.js"></script>
-<script src="/Assets/admin/js/pages/index.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+<script src="/Assets/admin/js/pages/index.js"></script>
+
 <!-- Demo Js -->
 <script src="/Assets/admin/js/demo.js"></script>
