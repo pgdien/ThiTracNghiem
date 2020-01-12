@@ -23,7 +23,12 @@ namespace Model.EF
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id_question { get; set; }
 
+        [Column(Order = 3)]
         [StringLength(100)]
         public string student_answer { get; set; }
+
+        [Column(Order = 4)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public float score { get; set; }
     }
 }

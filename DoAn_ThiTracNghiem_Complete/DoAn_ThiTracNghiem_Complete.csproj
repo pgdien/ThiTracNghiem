@@ -1297,6 +1297,7 @@
     <Content Include="Areas\Student\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\QEssayCreate.cshtml" />
     <Content Include="Areas\Admin\Views\Subject\QEssayEdit.cshtml" />
+    <Content Include="Areas\Admin\Views\Thread\ChamDiemTuLuan.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

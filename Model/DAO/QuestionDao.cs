@@ -187,6 +187,15 @@ namespace Model.Dao
                     select x).Take(quest_of_thematic).ToList();
         }
 
+        public List<Student_Thread_Detail> GetStudent_Thread_Detail(int id_question, int id_exam, int id_student)
+        {
+            return (from a in db.Student_Thread_Detail
+                    where a.id_question == id_question &&
+                          a.id_exam == id_exam &&
+                          a.id_student == id_student
+                    select a).ToList();
+        }
+
         public Question ViewDetail(int id)
         {
             return db.Questions.SingleOrDefault((Question x) => x.id_question == id);

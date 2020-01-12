@@ -395,7 +395,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 i++;
                 string dd = item.student_thread.id_exam.ToString() + "i" + item.student.id_student;
                 string uid = "<a href = '/Admin/Thread/SDelete/" + dd + "' class='btn btn-danger waves-effect' data-ajax='true' data-ajax-complete='$('#" + dd + "').remove()' data-ajax-confirm='Bạn có chắc xóa bản ghi này?' data-ajax-method='Delete'><i class='material-icons'>delete</i> <span>Xóa</span> </a>" +
-                    "<button type='button' class='btn btn-success waves-effect' data-toggle='modal' data-target='#exampleModal' onclick='location.href = '<%: Url.Action('Action', 'Controller') %>'>Chấm điểm tự luận</ button > ";
+                    "<button type='button' class='btn btn-success waves-effect' data-toggle='modal' data-target='#exampleModal' onclick='ChamDiemTuLuan'>Chấm điểm tự luận</ button > ";
 
                 data.Add(new JsonRoomDataModel()
                 {
@@ -438,10 +438,10 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             }
         }
 
-        public void LuuDiemTuLuan(int id, float diem)
+        public void LuuDiemTuLuan(int id_question, int id_exam, int id_student, float diem)
         {
-            var result = new Thread();
-            result
+            var abc = new QuestionDao().GetStudent_Thread_Detail(id_question, id_exam, id_student);
+            abc.ForEach(x => x.score = diem);
         }
 
         public void SDelete(string id)
