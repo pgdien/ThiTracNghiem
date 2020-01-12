@@ -78,7 +78,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 int id_thread = dao.Insert(entity);
                 if (id_thread > 0)
                 {
-                 
+
                     //tạo bộ câu hỏi cho đề thi
                     List<ThematicModel> list_thematic = dao1.GetThematic(id_subject);
                     List<int> idExamOfThread = new List<int>();
@@ -254,7 +254,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 
             return View();
         }
-        
+
         public ActionResult RDelete(int id)
         {
             var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
@@ -395,7 +395,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 i++;
                 string dd = item.student_thread.id_exam.ToString() + "i" + item.student.id_student;
                 string uid = "<a href = '/Admin/Thread/SDelete/" + dd + "' class='btn btn-danger waves-effect' data-ajax='true' data-ajax-complete='$('#" + dd + "').remove()' data-ajax-confirm='Bạn có chắc xóa bản ghi này?' data-ajax-method='Delete'><i class='material-icons'>delete</i> <span>Xóa</span> </a>" +
-                    "<button type='button' class='btn btn-success waves-effect' data-toggle='modal' data-target='#exampleModal'>Chấm điểm tự luận</ button > ";
+                    "<button type='button' class='btn btn-success waves-effect' data-toggle='modal' data-target='#exampleModal' onclick='location.href = '<%: Url.Action('Action', 'Controller') %>'>Chấm điểm tự luận</ button > ";
 
                 data.Add(new JsonRoomDataModel()
                 {
@@ -420,7 +420,30 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpDelete]
-        
+
+        //Tự luận
+        public ActionResult ChamDiemTuLuan(int id)
+        {
+            var lop = new ThreadDao().ViewDetail(id);
+            if (lop == null) return View("Error");
+            else
+            {
+                var dao = new AdminDao();
+                var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
+                if (session.id_permission == 0)
+                    return View("Error");
+                var dao1 = new ThreadDao();
+                var list_exam = dao1.ListAllQuestion(id).Where(x => x.is_essay == 1);
+                return View(list_exam);
+            }
+        }
+
+        public void LuuDiemTuLuan(int id, float diem)
+        {
+            var result = new Thread();
+            result
+        }
+
         public void SDelete(string id)
         {
             var id_exam = id.Split('i')[0];
@@ -430,7 +453,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             {
 
             }
-           // return RedirectToAction("OpenRoom");
+            // return RedirectToAction("OpenRoom");
         }
 
         [HttpGet]

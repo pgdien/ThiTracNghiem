@@ -29,3 +29,14 @@ D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.xml
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.csproj.CopyComplete
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.dll
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.pdb
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\Model.dll.config
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\Model.dll
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\Model.pdb
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\EntityFramework.dll
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\EntityFramework.xml
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.xml
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\obj\Debug\Model.csprojAssemblyReference.cache
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\obj\Debug\Model.csproj.CopyComplete
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\obj\Debug\Model.dll
+D:\Project\ToolLiuTiu\ThiTracNghiem\Model\obj\Debug\Model.pdb
