@@ -118,6 +118,7 @@ G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\DoAn_ThiTracNghiem_Comp
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.csproj.CopyComplete
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.dll
 G:\GITHUB\doan_thiTracNghiem\DoAn_ThiTracNghiem_Complete\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.pdb
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.csprojAssemblyReference.cache
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\ApplicationInsights.config
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\roslyn\csc.exe
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -135,6 +136,8 @@ D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\DoAn_ThiTracNghiem_Complet
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\DoAn_ThiTracNghiem_Complete.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\DoAn_ThiTracNghiem_Complete.pdb
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Antlr3.Runtime.dll
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.dll
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EPPlus.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Microsoft.AI.Agent.Intercept.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Microsoft.AI.DependencyCollector.dll
@@ -155,10 +158,11 @@ D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Webpages.Deploy
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Webpages.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Webpages.Razor.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\WebGrease.dll
-D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Model.pdb
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Model.dll.config
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Antlr3.Runtime.pdb
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.xml
+D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.xml
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EPPlus.xml
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Microsoft.AI.DependencyCollector.xml
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\Microsoft.AI.ServerTelemetryChannel.xml
@@ -174,10 +178,6 @@ D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Webpages.Deploy
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Webpages.Razor.xml
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Helpers.xml
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\System.Web.Mvc.xml
-D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.xml
-D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.csprojAssemblyReference.cache
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.csproj.CopyComplete
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.dll
 D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\obj\Debug\DoAn_ThiTracNghiem_Complete.pdb
-D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.dll
-D:\CODE\ThiTracNghiem\DoAn_ThiTracNghiem_Complete\bin\EntityFramework.SqlServer.xml

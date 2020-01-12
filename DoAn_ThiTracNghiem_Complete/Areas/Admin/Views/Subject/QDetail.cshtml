@@ -1,6 +1,6 @@
 ﻿
 @using Model.ViewModel
-@model IEnumerable<Model.ViewModel.QuestionViewModel>
+@model List<Model.ViewModel.QuestionViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -60,7 +60,7 @@
                                 {
                             <tr id="row_@item.id_question">
                                 <td>@Html.DisplayFor(modelItem => item.id_question)</td>
-                                <td> @Html.DisplayFor(modelItem => item.question_content)</td>
+                                <td> @Html.Raw(item.question_content)</td>
                                 <td> @Html.DisplayFor(modelItem => item.thematic_name)</td>
 
                                 @if (item.is_essay.ToString() == "1")
@@ -71,10 +71,17 @@
                                 {
                                     <td>  Trắc nghiệm </td>
                                 }
-                                <td>
+                            <td>
+                                @if (item.is_essay.ToString() == "0")
+                                {
                                     <a href="/Admin/Subject/QEdit/@item.id_question" class="btn btn-primary waves-effect"><i class="material-icons">edit</i> <span>Chỉnh sửa</span></a>
-                                    <a href="/Admin/Subject/QDelete/@item.id_question" class="btn btn-danger waves-effect" data-ajax="true" data-ajax-complete="$('#row_@item.id_question').remove()" data-ajax-confirm="Bạn có chắc xóa bản ghi này?" data-ajax-method="Delete"><i class="material-icons">delete</i> <span>Xóa</span> </a>
-                                </td>
+                                }
+                                @if (item.is_essay.ToString() == "1")
+                                {
+                                    <a href="/Admin/Subject/QEssayEdit/@item.id_question" class="btn btn-primary waves-effect"><i class="material-icons">edit</i> <span>Chỉnh sửa</span></a>
+                                }
+                                <a href="/Admin/Subject/QDelete/@item.id_question" class="btn btn-danger waves-effect" data-ajax="true" data-ajax-complete="$('#row_@item.id_question').remove()" data-ajax-confirm="Bạn có chắc xóa bản ghi này?" data-ajax-method="Delete"><i class="material-icons">delete</i> <span>Xóa</span> </a>
+                            </td>
                             </tr>
                                 }
                             }
@@ -120,7 +127,7 @@
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <!-- Custom Js -->
 <script src="/Assets/admin/js/admin.js"></script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
 <script src="/Assets/admin/js/pages/ui/dialogs.js"></script>
 <script src="/Assets/admin/js/pages/tables/jquery-datatable.js"></script>
 @if (TempData["NoticeMessage"] != null)

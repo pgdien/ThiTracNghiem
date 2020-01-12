@@ -10,6 +10,9 @@ using DoAn_ThiTracNghiem_Complete.Areas.Admin.Code;
 using System.Threading.Tasks;
 using System.IO;
 using System.Web.Hosting;
+using System.Text.RegularExpressions;
+using System.Runtime.Remoting.Messaging;
+
 namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 {
     public class SubjectController : BaseController
@@ -301,7 +304,15 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 dao.UpdateLastSeen("Xem các câu hỏi của môn học " + dao2.subject_name, "/Admin/Subject/QDetail" + dao2.id_subject, session.id_admin);
                 TempData["subject_name"] = dao2.subject_name;
                 TempData["id_subject"] = id;
-                return View(dao1);
+                var list = dao1.ToList();
+                foreach (var item in list)
+                {
+                    item.question_content = RemoveHtml(RemoveFomula(item.question_content));
+                    if (item.question_content.Length >= 90)
+                        item.question_content = item.question_content.Substring(0, 90) + "....";
+                }
+
+                return View(list);
             }
         }
         [HttpGet]
@@ -419,6 +430,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult QEssayCreate(Question collection, int id_subject)
         {
             var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
@@ -428,8 +440,14 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var dao = new QuestionDao();
+
+                collection.question_content = System.Net.WebUtility.HtmlDecode(collection.question_content);
+                collection.is_essay = 1;
+                collection.is_change = 0;
+                collection.B = "-1";
+                collection.C = "-1";
+                collection.D = "-1";
                 int id = dao.Insert(collection);
                 if (id > 0)
                 {
@@ -446,7 +464,6 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                     SetViewBag(id_subject);
                     ModelState.AddModelError("", "Thêm câu hỏi tự luận không thành công.");
                 }
-
             }
             var dao3 = new SubjectDao().ViewDetail(id_subject);
             TempData["subject_name"] = dao3.subject_name;
@@ -455,97 +472,154 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             return View();
         }
 
-        //[HttpGet]
-        //public ActionResult QEssayEdit(int id)
-        //{
-        //    var dao = new AdminDao();
-        //    var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
-        //    if (session.id_permission == 2)
-        //        return View("Error");
-        //    ViewBag.AdminName = session.name;
+        [HttpGet]
+        public ActionResult QEssayEdit(int id)
+        {
+            var dao = new AdminDao();
+            var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
+            if (session.id_permission == 2)
+                return View("Error");
+            ViewBag.AdminName = session.name;
+            var dao1 = new QuestionDao().ViewDetail(id);
+            if (dao1 == null) return View("Error");
+            else
+            {
+                var dao3 = new ThematicDao().ViewDetail(dao1.id_thematic);
+                var dao2 = new SubjectDao().ViewDetail(dao3.id_subject);
+                dao.UpdateLastLogin(session.id_admin);
+                dao.UpdateLastSeen("Sửa câu hỏi của môn " + dao2.subject_name, "/Admin/Subject/QEssayEdit/" + id, session.id_admin);
+                TempData["subject_name"] = dao2.subject_name;
+                TempData["id_subject"] = dao2.id_subject;
+                SetViewBag(dao3.id_subject, dao1.id_thematic);
+                return View(dao1);
+            }
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult QEssayEdit(Question collection, int id_subject)
+        {
+
+            var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
+            if (session.id_permission == 2)
+                return View("Error");
+            ViewBag.AdminName = session.name;
+
+            var dao = new QuestionDao();
+
+            var id = dao.Update(collection);
+            if (id)
+            {
+                SetNotice("Hệ thống đã sửa thành công câu hỏi có id " + collection.id_question + ".", "success");
+                return RedirectToAction("QDetail", new { id = id_subject });
+            }
+            else
+            {
+                var dao2 = new SubjectDao().ViewDetail(id_subject);
+                TempData["subject_name"] = dao2.subject_name;
+                TempData["id_subject"] = id_subject;
+                SetNotice("Có lỗi xảy ra!!", "danger");
+                ModelState.AddModelError("", "Cập nhật thông tin câu hỏi không thành công.");
+            }
+            var dao3 = new SubjectDao().ViewDetail(id_subject);
+            TempData["subject_name"] = dao3.subject_name;
+            TempData["id_subject"] = id_subject;
+            SetViewBag(id_subject);
+            return View();
+
+        }
+
+        [HttpGet]
+        public ActionResult QEdit(int id)
+        {
+            var dao = new AdminDao();
+            var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
+            if (session.id_permission == 2)
+                return View("Error");
+            ViewBag.AdminName = session.name;
 
 
-        //    var dao1 = new QuestionDao().ViewDetail(id);
-        //    if (dao1 == null) return View("Error");
-        //    else
-        //    {
-        //        var dao3 = new ThematicDao().ViewDetail(dao1.id_thematic);
-        //        var dao2 = new SubjectDao().ViewDetail(dao3.id_subject);
-        //        dao.UpdateLastLogin(session.id_admin);
-        //        dao.UpdateLastSeen("Sửa câu hỏi của môn " + dao2.subject_name, "/Admin/Subject/QEdit/" + id, session.id_admin);
-        //        TempData["subject_name"] = dao2.subject_name;
-        //        TempData["id_subject"] = dao2.id_subject;
-        //        SetViewBag(dao3.id_subject, dao1.id_thematic);
-        //        return View(dao1);
-        //    }
-        //}
-        //[HttpPost]
-        //public ActionResult QEssayEdit(Question collection, int id_subject)
-        //{
+            var dao1 = new QuestionDao().ViewDetail(id);
+            if (dao1 == null) return View("Error");
+            else
+            {
+                var dao3 = new ThematicDao().ViewDetail(dao1.id_thematic);
+                var dao2 = new SubjectDao().ViewDetail(dao3.id_subject);
+                dao.UpdateLastLogin(session.id_admin);
+                dao.UpdateLastSeen("Sửa câu hỏi của môn " + dao2.subject_name, "/Admin/Subject/QEdit/" + id, session.id_admin);
+                TempData["subject_name"] = dao2.subject_name;
+                TempData["id_subject"] = dao2.id_subject;
+                SetViewBag(dao3.id_subject, dao1.id_thematic);
+                return View(dao1);
+            }
+        }
 
-        //    var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
-        //    if (session.id_permission == 2)
-        //        return View("Error");
-        //    ViewBag.AdminName = session.name;
-        //    try
-        //    {
-        //        if (File != null)
-        //        {
-        //            string fileName = Path.GetFileName(File.FileName);
-        //            //Upload image
-        //            string path = Server.MapPath("~/Assets/img_questions/");
-        //            //Đuối hỗ trợ
-        //            var allowedExtensions = new[] { ".png", ".jpg" };
-        //            //Lấy phần mở rộng của file
-        //            string extensionName = Path.GetExtension(File.FileName).ToLower();
-        //            //Kiểm tra đuôi file
-        //            if (!allowedExtensions.Contains(extensionName))
-        //            {
-        //                ModelState.AddModelError("", "Chỉ chọn file ảnh đuôi .PNG .png .JPG .jpg");
-        //                var dao2 = new SubjectDao().ViewDetail(id_subject);
-        //                TempData["subject_name"] = dao2.subject_name;
-        //                TempData["id_subject"] = id_subject;
-        //                SetViewBag(id_subject);
-        //                return View();
-        //            }
-        //            else
-        //            {
-        //                // Tạo tên file ngẫu nhiên
-        //                collection.img = DateTime.Now.Ticks.ToString() + extensionName;
-        //                // Upload file lên server
-        //                File.SaveAs(path + collection.img);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            //  collection.
-        //        }
+        [HttpPost]
+        public ActionResult Qdit(Question collection, int id_subject, HttpPostedFileBase File)
+        {
 
-        //    }
-        //    catch (Exception) { }
-        //    var dao = new QuestionDao();
+            var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
+            if (session.id_permission == 2)
+                return View("Error");
+            ViewBag.AdminName = session.name;
+            try
+            {
+                if (File != null)
+                {
+                    string fileName = Path.GetFileName(File.FileName);
+                    //Upload image
+                    string path = Server.MapPath("~/Assets/img_questions/");
+                    //Đuối hỗ trợ
+                    var allowedExtensions = new[] { ".png", ".jpg" };
+                    //Lấy phần mở rộng của file
+                    string extensionName = Path.GetExtension(File.FileName).ToLower();
+                    //Kiểm tra đuôi file
+                    if (!allowedExtensions.Contains(extensionName))
+                    {
+                        ModelState.AddModelError("", "Chỉ chọn file ảnh đuôi .PNG .png .JPG .jpg");
+                        var dao2 = new SubjectDao().ViewDetail(id_subject);
+                        TempData["subject_name"] = dao2.subject_name;
+                        TempData["id_subject"] = id_subject;
+                        SetViewBag(id_subject);
+                        return View();
+                    }
+                    else
+                    {
+                        // Tạo tên file ngẫu nhiên
+                        collection.img = DateTime.Now.Ticks.ToString() + extensionName;
+                        // Upload file lên server
+                        File.SaveAs(path + collection.img);
+                    }
+                }
+                else
+                {
+                    //  collection.
+                }
 
-        //    var id = dao.Update(collection);
-        //    if (id)
-        //    {
-        //        SetNotice("Hệ thống đã sửa thành công câu hỏi có id " + collection.id_question + ".", "success");
-        //        return RedirectToAction("QDetail", new { id = id_subject });
-        //    }
-        //    else
-        //    {
-        //        var dao2 = new SubjectDao().ViewDetail(id_subject);
-        //        TempData["subject_name"] = dao2.subject_name;
-        //        TempData["id_subject"] = id_subject;
-        //        SetNotice("Có lỗi xảy ra!!", "danger");
-        //        ModelState.AddModelError("", "Cập nhật thông tin chuyên đề không thành công.");
-        //    }
-        //    var dao3 = new SubjectDao().ViewDetail(id_subject);
-        //    TempData["subject_name"] = dao3.subject_name;
-        //    TempData["id_subject"] = id_subject;
-        //    SetViewBag(id_subject);
-        //    return View();
+            }
+            catch (Exception) { }
+            var dao = new QuestionDao();
 
-        //}
+            var id = dao.Update(collection);
+            if (id)
+            {
+                SetNotice("Hệ thống đã sửa thành công câu hỏi có id " + collection.id_question + ".", "success");
+                return RedirectToAction("QDetail", new { id = id_subject });
+            }
+            else
+            {
+                var dao2 = new SubjectDao().ViewDetail(id_subject);
+                TempData["subject_name"] = dao2.subject_name;
+                TempData["id_subject"] = id_subject;
+                SetNotice("Có lỗi xảy ra!!", "danger");
+                ModelState.AddModelError("", "Cập nhật thông tin chuyên đề không thành công.");
+            }
+            var dao3 = new SubjectDao().ViewDetail(id_subject);
+            TempData["subject_name"] = dao3.subject_name;
+            TempData["id_subject"] = id_subject;
+            SetViewBag(id_subject);
+            return View();
+
+        }
 
 
         public ActionResult QDelete(int id)
@@ -648,6 +722,27 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
         {
             var dao = new ThematicDao();
             ViewBag.id_thematic = new SelectList(dao.ListThematicInSubject(id_subject), "id_thematic", "thematic_name", selectedId);
+        }
+
+        public string RemoveHtml(string text)
+        {
+            return Regex.Replace(text, "<[^>]*>", string.Empty);
+        }
+
+        public string RemoveFomula(string text)
+        {
+            string text_start = "<span class=\"math-tex\">";
+            string text_end = "</span>";
+            int index = -1;
+            index = text.IndexOf(text_start);
+            while (index > -1)
+            {
+                int last_index = text.IndexOf(text_end, index);
+                text = text.Remove(index, last_index - index + 7);
+                text = text.Insert(index, "#MATH_FOMULA#");
+                index = text.IndexOf(text_start);
+            }
+            return text;
         }
     }
 }
