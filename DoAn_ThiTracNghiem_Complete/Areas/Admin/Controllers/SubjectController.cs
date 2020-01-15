@@ -550,15 +550,15 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 dao.UpdateLastSeen("Sửa câu hỏi của môn " + dao2.subject_name, "/Admin/Subject/QEdit/" + id, session.id_admin);
                 TempData["subject_name"] = dao2.subject_name;
                 TempData["id_subject"] = dao2.id_subject;
+                //dao1.img = Server.MapPath("~/Assets/img_questions/") + dao1.img;
                 SetViewBag(dao3.id_subject, dao1.id_thematic);
                 return View(dao1);
             }
         }
 
         [HttpPost]
-        public ActionResult Qdit(Question collection, int id_subject, HttpPostedFileBase File)
+        public ActionResult Qedit(Question collection, int id_subject, HttpPostedFileBase File)
         {
-
             var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
             if (session.id_permission == 2)
                 return View("Error");

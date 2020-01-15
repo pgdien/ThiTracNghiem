@@ -86,7 +86,8 @@
                                 <div class="form-group">
                                     <div class="form-line">
                                         <input type="file" name="file" id="file" />
-                                        <label id="file">AAAAAAAAAA</label>
+                                        <img class="col-lg-6 col-md-6 col-sm-12 col-xs-12" src="@Url.Content("~/Assets/img_questions/" + Model.img)" alt="IMAGES" />
+                                        <label class="col-lg-6 col-md-6 col-sm-12 col-xs-12"  id="file">@Html.DisplayFor(item => item.img)</label>
                                     </div>
                                     <p style="margin-top: 3px; margin-left: 73px;"><strong>Ghi chú:</strong> Chỉ cho phép upload file<strong> ảnh</strong> và file đó phải có dung lượng dưới 3mb.</p>
                                 </div>
