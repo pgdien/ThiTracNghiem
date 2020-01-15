@@ -85,7 +85,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Student.Controllers
 
             var id_exam = studentDao.GetIdExam(id_student, id_thread);
 
-            var model = studentDao.GetListQuest(id_exam,id_student);
+            var model = studentDao.GetListQuest(id_exam, id_student);
             if (model.Count > 0)
             {
                 ViewBag.idStudent = id_student;
@@ -110,7 +110,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Student.Controllers
             if (studentDao.getTesting(id_student) < 0)
                 return View("Error");
             var id_thread = studentDao.getTesting(id_student);
-            var list = studentDao.GetListQuest(studentDao.GetIdExam(id_student, id_thread),id_student);
+            var list = studentDao.GetListQuest(studentDao.GetIdExam(id_student, id_thread), id_student);
             int total_quest = list.FirstOrDefault().thread.max_question;
             double coefficient = 10.0 / (double)total_quest;
             int count_correct = 0;
@@ -135,7 +135,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Student.Controllers
                 return View("Error");
             ViewBag.score = studentDao.GetScore(id_student, id);
             ViewBag.studenname = studentDao.ViewDetail(id_student).student_name;
-            var model = studentDao.GetListQuest(studentDao.GetIdExam(id_student, id),id_student);
+            var model = studentDao.GetListQuest(studentDao.GetIdExam(id_student, id), id_student);
             studentDao.UpdateLastLogin(id_student, GetIPAddress(), GetUserEnvironment());
             studentDao.UpdateLastSeen("Đang xem kết quả của " + model.FirstOrDefault().thread.thread_name, "/Student/Home/TestResult/" + id, id_student);
             return View(model);
@@ -161,9 +161,14 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Student.Controllers
             int id_quest = Convert.ToInt32(form["id"]);
             string answer = form["answer"];
             answer = answer.Trim();
-            string time = form["min"] + ":" + form["sec"];
             studentDao.UpdateStudentTest(id_quest, answer, id_thread, id_student);
-            studentDao.UpdateTiming(time, id_student, id_thread);
+            if (form["min"] != null)
+            {
+                string time = form["min"] + ":" + form["sec"];
+                studentDao.UpdateTiming(time, id_student, id_thread);
+            }
+            else
+                SubmitTest();
         }
 
         public void UpdateFocusTab(FormCollection form)

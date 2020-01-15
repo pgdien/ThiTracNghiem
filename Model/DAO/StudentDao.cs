@@ -244,6 +244,7 @@ namespace Model.Dao
                         join w in db.ExamOfThreads on t.id_exam equals w.id_exam
                         join q in db.Threads on w.id_thread equals q.id_thread
                         where (int?)w.id_exam == id_exam && (int?)t.id_exam == id_exam && (int?)x.id_exam == id_exam && x.id_student==id_student 
+                        orderby t.is_essay ascending
                         select new StudentQuestViewModel
                         {
                             thread = q,

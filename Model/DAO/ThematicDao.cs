@@ -33,8 +33,9 @@ namespace Model.Dao
                         {
                             id_thematic = g.Key.id_thematic,
                             thematic_name= g.Key.thematic_name,
-                            total = g.Count(p => p.Question.id_question != null)
-                        };
+                            total = g.Count(p => p.Question.id_question != null),
+                            essay_question = g.Count(p => p.Question.id_question !=null && p.Question.is_essay != 0)
+                        }; 
             List<ThematicModel> a = tests.ToList();
             return a;
         }

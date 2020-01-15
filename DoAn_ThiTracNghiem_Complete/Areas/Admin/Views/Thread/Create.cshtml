@@ -42,116 +42,123 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Tên kỳ thi</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        @Html.EditorFor(model => model.thread_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền tên kì thi", @required = "required" } })
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.thread_name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Tên kỳ thi</label>
                         </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Số lượng đề</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <input class="form-control" placeholder="Điền số lượng đề thi" min="1" required="required" type="number" name="total_exam" id="total_exam" />
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.thread_name, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Tên môn thi</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7" style="padding-left: 0px;">
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
                                 <div class="form-line">
-                                    <select class="form-control show-tick" data_live_search="true" name="id_subject" id="id_subject" onchange="get_units(this.value)" required>
-                                        <option disabled selected>Chọn</option>
-                                        @foreach (var item in ListSubject)
-                                        {
-                                            <option value="@item.id_subject">@item.subject_name</option>
-                                        }
-                                    </select>
+                                    @Html.EditorFor(model => model.thread_name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền tên kì thi", @required = "required" } })
                                 </div>
-
-                                @Html.ValidationMessageFor(model => model.id_subject, "", new { @class = "text-danger" })
-                            </div>
-
-                        </div>
-
-                        <div class="row clearfix">
-
-                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7" style="padding-left: 0px;">
-
-                                <div class="form-line" style="margin-left: 260px;" id="list-unit">
-
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Thời gian làm bài</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        @Html.EditorFor(model => model.time_to_do, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền thời gian làm bài theo phút", @required = "required", @type = "number" } })
-                                    </div>
-                                    @Html.ValidationMessageFor(model => model.time_to_do, "", new { @class = "text-danger" })
-                                </div>
+                                @Html.ValidationMessageFor(model => model.thread_name, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Tổng số câu hỏi</label>
-                            </div>
-                            <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
-                                <div class="col-sm-10" style="padding-left: 0px;">
-                                    <input class="form-control total_question" type="number" id="max_question" name="max_question" readonly min="1" value="0">
-                                </div>
-
-                            </div>
-
-
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Số lượng đề</label>
                         </div>
-                        <div class="row clearfix">
-                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                                <label>Trạng thái</label>
-                            </div>
-                            <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
-                                <div class="col-sm-10" style="padding-left: 0px;">
-
-                                    @Html.DropDownList("thread_status", new List<SelectListItem>
-                           {
-                               new SelectListItem{ Text = "Mở", Value = "True"},
-                               new SelectListItem{ Selected=true,Text = "Đóng", Value = "False"}
-                           }, new { @class = "form-control show-tick" })
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input class="form-control" placeholder="Điền số lượng đề thi" min="1" required="required" type="number" name="total_exam" id="total_exam" />
                                 </div>
-                                @Html.ValidationMessageFor(model => model.thread_status, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.thread_name, "", new { @class = "text-danger" })
                             </div>
-                            <div class="col-sm-6">
-                                <button type="submit" class="btn bg-orange waves-effect">
-                                    <i class="material-icons">save</i>
-                                    <span>Lưu</span>
-                                </button>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Tên môn thi</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7" style="padding-left: 0px;">
+                            <div class="form-line">
+                                <select class="form-control show-tick" data_live_search="true" name="id_subject" id="id_subject" onchange="get_units(this.value)" required>
+                                    <option disabled selected>Chọn</option>
+                                    @foreach (var item in ListSubject)
+                                    {
+                                        <option value="@item.id_subject">@item.subject_name</option>
+                                    }
+                                </select>
                             </div>
+
+                            @Html.ValidationMessageFor(model => model.id_subject, "", new { @class = "text-danger" })
                         </div>
 
                     </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7" style="padding-left: 0px;">
+                            <div class="form-line" style="margin-left: 260px;" id="list-unit">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Điểm tự luận</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input class="form-control" placeholder="Nhập điểm tự luận" min="0" max ="10" required="required" type="number" name="essay_score" id="essay_score" />
+                                </div>
+                                @Html.ValidationMessageFor(model => model.thread_name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Thời gian làm bài</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    @Html.EditorFor(model => model.time_to_do, new { htmlAttributes = new { @class = "form-control", @placeholder = "Điền thời gian làm bài theo phút", @required = "required", @type = "number" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.time_to_do, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Tổng số câu hỏi</label>
+                        </div>
+                        <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="col-sm-10" style="padding-left: 0px;">
+                                <input class="form-control total_question" type="number" id="max_question" name="max_question" readonly min="1" value="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Trạng thái</label>
+                        </div>
+                        <div class="col-sm-4" style="padding-left: 0px; padding-right: 0px;">
+                            <div class="col-sm-10" style="padding-left: 0px;">
+
+                                @Html.DropDownList("thread_status", new List<SelectListItem>
+                       {
+                           new SelectListItem{ Text = "Mở", Value = "True"},
+                           new SelectListItem{ Selected=true,Text = "Đóng", Value = "False"}
+                       }, new { @class = "form-control show-tick" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.thread_status, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn bg-orange waves-effect">
+                                <i class="material-icons">save</i>
+                                <span>Lưu</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
                 }
 
                 <div>
@@ -214,7 +221,11 @@
                 list.append(item);
             } else {
                 for (i = 0; i < result.length; i++) {
-                    var item = '<div class="input-field"><label for="unit-' + result[i].id_thematic + '">Chuyên đề ' + result[i].thematic_name + ' (hiện có ' + result[i].total + ' câu) </label><input type="number" min="0" max="' + result[i].total + '" class="form-control unit_input" onchange="set_sum(' + result[i].total + ')"  name="unit-' + result[i].id_thematic + '" placeholder ="Tối đa ' + result[i].total + ' câu" id="unit-' + result[i].id_thematic + '" required value = "0"></div>';
+                    let tracnghiem = result[i].total - result[i].essay_question;
+
+                    var item = '<div class="input-field"><div><label for="unit-' + result[i].id_thematic + '">Chuyên đề ' + result[i].thematic_name + ' (hiện có ' + tracnghiem + ' câu trắc nghiệm và có ' + result[i].essay_question + ' câu tự luận) </label></div>';
+                    item = item + '<div class="col-md-6">  <span class="input-group-addon"> <label>Trắc nghiệm</label>   </span> <input type="number" min="0" max="' +tracnghiem + '" class="form-control unit_input" onchange="set_sum(' + tracnghiem + ')"  name="unit-' + result[i].id_thematic + '" placeholder ="Tối đa ' + tracnghiem+ ' câu" id="unit-' + result[i].id_thematic + '" required value = "0"></div>';
+                    item = item + '<div class="col-md-6"><span class="input-group-addon"> <label>Tự luận</label> </span><input type="number" min="0" max="' + result[i].essay_question + '" class="form-control unit_input" onchange="set_sum(' + result[i].essay_question + ')"  name="unit-essay-' + result[i].id_thematic + '" placeholder ="Tối đa ' + result[i].essay_question + ' câu" id="unit-essay-' + result[i].id_thematic + '" required value = "0"></div></div>';
                     list.append(item);
                 }
             }
@@ -224,14 +235,14 @@
     function set_sum(total) {
         var sum = 0;
         $('.unit_input').each(function () {
-            if (parseInt(this.value) > parseInt(this.getAttribute("max") )){
+            if (parseInt(this.value) > parseInt(this.getAttribute("max"))) {
                 alert("Nhập quá số câu hỏi đang có, vui lòng kiểm tra lại");
-                this.value =0;
+                this.value = 0;
             }
 
-            else if (this.value != "" && parseInt(this.value)>0)
+            else if (this.value != "" && parseInt(this.value) > 0)
                 sum += parseInt(this.value);
-           else if (parseInt(this.value) < parseInt(this.getAttribute("min"))) {
+            else if (parseInt(this.value) < parseInt(this.getAttribute("min"))) {
 
                 this.value = 0;
             }

@@ -90,17 +90,27 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                     }
                     foreach (ThematicModel thematic in list_thematic)
                     {
+                        //lấy danh sách câu hỏi trắc nghiệm ngẫu nhiên
                         int quest_of_thematic = Convert.ToInt32(collection["unit-" + thematic.id_thematic]);
                         List<Question> list_question = dao2.GetQuestionsByThematic(thematic.id_thematic, quest_of_thematic);
                         foreach (Question item in list_question)
                         {
-
                             foreach (int id_exam in idExamOfThread)
                             {
                                 dao2.AddQuestionsToExam(id_exam, item.id_question);
                             }
-
                         }
+                        //lấy danh sách câu hỏi tự luận ngẫu nhiên
+                        quest_of_thematic = Convert.ToInt32(collection["unit-essay-" + thematic.id_thematic]);
+                        List<Question> list_essay = dao2.GetEssayByThematic(thematic.id_thematic, quest_of_thematic);
+                        foreach (Question item in list_essay)
+                        {
+                            foreach (int id_exam in idExamOfThread)
+                            {
+                                dao2.AddEssaysToExam(item,id_exam);
+                            }
+                        }
+
                     }
                     //để thông báo thêm thành công
                     SetNotice("Hệ thống đã thêm thành công.", "success");

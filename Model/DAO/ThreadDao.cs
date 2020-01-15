@@ -217,6 +217,7 @@ namespace Model.Dao
             tmp2.thread_name = entity.thread_name;
             tmp2.thread_status = entity.thread_status;
             tmp2.time_to_do = entity.time_to_do;
+            tmp2.essay_score = entity.essay_score;
             db.Threads.Add(tmp2);
             db.SaveChanges();
             Exam_Room tmp = new Exam_Room();

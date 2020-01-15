@@ -29,3 +29,4 @@ D:\CODE\ThiTracNghiem\Model\bin\Debug\EntityFramework.SqlServer.xml
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.csproj.CopyComplete
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.dll
 D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.pdb
+D:\CODE\ThiTracNghiem\Model\obj\Debug\Model.csprojAssemblyReference.cache

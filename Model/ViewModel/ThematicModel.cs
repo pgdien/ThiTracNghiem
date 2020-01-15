@@ -12,5 +12,7 @@ namespace Model.ViewModel
         public int total { get; set; }
 
         public string thematic_name { get; set; }
+
+        public int essay_question { get; set; }
     }
 }

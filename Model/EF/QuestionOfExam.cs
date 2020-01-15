@@ -51,5 +51,7 @@ namespace Model.EF
         [Column(Order = 7)]
         [StringLength(500)]
         public string correct_answer { get; set; }
+
+        public int? is_essay { get; set; }
     }
 }
