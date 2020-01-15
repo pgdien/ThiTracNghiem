@@ -35,78 +35,129 @@
 
                 //if (item.student_thread.id_student == ViewBag.idStudent && item.student_thread.id_exam == ViewBag.idExam)
                 //{
-                <div id="quest-@x" class="item-quest">
-                    <div class="quest-title">Câu @x :</div>
-                    <div class="quest-content">
-                        <span>@item.question_exam.question_content</span>
+                if (item.question_exam.is_essay == 0)
+                {
+                    <div id="quest-@x" class="item-quest">
+                        <div class="quest-title">Câu @x :</div>
+                        <div class="quest-content">
+                            @Html.Raw(item.question_exam.question_content)
 
-                        @if (item.question_exam.img != null && item.question_exam.img.Length > 0)
-                        {
-                            <small class="title">(Câu hỏi có nội dung ảnh)</small>
+                            @if (item.question_exam.img != null && item.question_exam.img.Length > 0)
+                            {
+                                <small class="title">(Câu hỏi có nội dung ảnh)</small>
+                                <div>
                                     <img src="~/Assets/img_questions/@item.question_exam.img" style="max-width:700px" />
-                        }
+                                </div>
+                            }
+                        </div>
+                        <div class="quest-answer">
+                            <p>
+                                <label>
+                                    @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.A.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.A.Trim())" checked />
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.A.Trim())" />
+                                    }
+                                    <span>@Html.Raw(item.question_exam.A)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.B.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.B.Trim())" checked />
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.B.Trim())" />
+                                    }
+                                    <span>@Html.Raw(item.question_exam.B)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.C.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.C.Trim())" checked />
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.C.Trim())" />
+                                    }
+                                    <span>@Html.Raw(item.question_exam.C)</span>
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.D.Trim()))
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.D.Trim())" checked />
+                                    }
+                                    else
+                                    {
+                                        <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@Html.Raw( item.question_exam.D.Trim())" />
+                                    }
+                                    <span>@Html.Raw(item.question_exam.D)</span>
+                                </label>
+                            </p>
+                        </div>
                     </div>
-                    <div class="quest-answer">
-                        <p>
-                            <label>
-                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.A.Trim()))
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.A.Trim()" checked />
-                                }
-                                else
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.A.Trim()" />
-                                }
-                                <span>@item.question_exam.A</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.B.Trim()))
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.B.Trim()" checked />
-                                }
-                                else
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.B.Trim()" />
-                                }
-                                <span>@item.question_exam.B</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.C.Trim()))
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.C.Trim()" checked />
-                                }
-                                else
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.C.Trim()" />
-                                }
-                                <span>@item.question_exam.C</span>
-                            </label>
-                        </p>
-                        <p>
-                            <label>
-                                @if (item.student_thread.student_answer != null && item.student_thread.student_answer.Trim().Equals(item.question_exam.D.Trim()))
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.D.Trim()" checked />
-                                }
-                                else
-                                {
-                                    <input name="@item.question_exam.id_question" data-idquest="@item.question_exam.id_question" type="radio" data-stt="@x" value="@item.question_exam.D.Trim()" />
-                                }
-                                <span>@item.question_exam.D</span>
-                            </label>
-                        </p>
+                    //}
+                }
+                else if (item.question_exam.is_essay == 1)
+                {
+                    <div id="quest-@x" class="item-quest">
+                        <div class="quest-title">Câu @x :</div>
+                        <div class="quest-content">
+                            @Html.Raw(item.question_exam.question_content)
+
+                            @if (item.question_exam.img != null && item.question_exam.img.Length > 0)
+                            {
+                                <small class="title">(Câu hỏi có nội dung ảnh)</small>
+                                <div>
+                                    <img src="~/Assets/img_questions/@item.question_exam.img" style="max-width:700px" />
+                                </div>
+                            }
+                        </div>
+                        <div class="quest-answer">
+                            @* đáp án A *@
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                    <label>Đáp án</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-8 col-xs-7">
+                                    <div class="form-group">
+                                        <textarea style="height:7rem;"  data-quest_id="@item.question_exam.id_question"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>
+                                <label>
+                                    <input data-val="true" id="B" name="B" type="hidden" value="-1" />
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input data-val="true" id="C" name="C" type="hidden" value="-1" />
+                                </label>
+                            </p>
+                            <p>
+                                <label>
+                                    <input data-val="true" id="D" name="D" type="hidden" value="-1" />
+                                </label>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                x = x + 1;
-                //}
+                }
+                    x = x + 1;
+
             }
         }
 
-        <a href="@Url.Action("SubmitTest")" class="btn flat" style="margin-left: 40%;width: 30%;margin-top: 20px;margin-bottom: 10px;" onclick="return confirm('Xác nhận nộp bài?')">Nộp Bài</a>
+        <a href="javascript:void(0)" class="btn flat" style="margin-left: 40%;width: 30%;margin-top: 20px;margin-bottom: 10px;" onclick="submit_form()">Nộp Bài</a>
     </div>
 </div>
 <script>
@@ -148,6 +199,23 @@
         setTimeout('Redirect()', 5000);
     }
 
+    function submit_form() {
+        confirm('Xác nhận nộp bài?');
+        var url = "@Url.Action("UpdateStudentTest")";
+        var success = function (result) {
+                $('#tick-' + stt).text("✓");
+        };
+
+        $('.quest-answer .form-group textarea').each(function () {
+        var data = {
+            id: $(this).context.dataset.quest_id,
+            answer: $(this).context.value
+        }
+        $.post(url, data, success);
+        });
+        Redirect();
+    }
+
     $(function () {
         $('input[type=radio]').change(function () {
             var stt = $(this).data("stt");
@@ -166,6 +234,9 @@
             $.post(url, data, success);
         })
     })
+
+
+
     $(window).scroll(function () {
         $('#footer').css("display", "none");
         if (window.pageYOffset > 30) {
@@ -200,6 +271,7 @@
         $.post(url, data, success);
     }
 </script>
+
 <script>
 
     var focustab= 0;
@@ -234,4 +306,17 @@
 
 
     })
+</script>
+
+<script src="/Assets/admin/plugins/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script>
+    //CKEditor
+    CKEDITOR.replace('122', {
+        htmlEncodeOutput: false
+    });
+    CKEDITOR.config.height = 300;
+    CKEDITOR.config.extraPlugins = 'mathjax';
+    CKEDITOR.config.mathJaxLib = '//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML';
 </script>

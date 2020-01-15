@@ -78,7 +78,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 int id_thread = dao.Insert(entity);
                 if (id_thread > 0)
                 {
-
+                 
                     //tạo bộ câu hỏi cho đề thi
                     List<ThematicModel> list_thematic = dao1.GetThematic(id_subject);
                     List<int> idExamOfThread = new List<int>();
@@ -90,17 +90,27 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                     }
                     foreach (ThematicModel thematic in list_thematic)
                     {
+                        //lấy danh sách câu hỏi trắc nghiệm ngẫu nhiên
                         int quest_of_thematic = Convert.ToInt32(collection["unit-" + thematic.id_thematic]);
                         List<Question> list_question = dao2.GetQuestionsByThematic(thematic.id_thematic, quest_of_thematic);
                         foreach (Question item in list_question)
                         {
-
                             foreach (int id_exam in idExamOfThread)
                             {
                                 dao2.AddQuestionsToExam(id_exam, item.id_question);
                             }
-
                         }
+                        //lấy danh sách câu hỏi tự luận ngẫu nhiên
+                        quest_of_thematic = Convert.ToInt32(collection["unit-essay-" + thematic.id_thematic]);
+                        List<Question> list_essay = dao2.GetEssayByThematic(thematic.id_thematic, quest_of_thematic);
+                        foreach (Question item in list_essay)
+                        {
+                            foreach (int id_exam in idExamOfThread)
+                            {
+                                dao2.AddEssaysToExam(item,id_exam);
+                            }
+                        }
+
                     }
                     //để thông báo thêm thành công
                     SetNotice("Hệ thống đã thêm thành công.", "success");
@@ -254,7 +264,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 
             return View();
         }
-
+        
         public ActionResult RDelete(int id)
         {
             var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
@@ -394,8 +404,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 int i = 0;
                 i++;
                 string dd = item.student_thread.id_exam.ToString() + "i" + item.student.id_student;
-                string uid = "<a href = '/Admin/Thread/SDelete/" + dd + "' class='btn btn-danger waves-effect' data-ajax='true' data-ajax-complete='$('#" + dd + "').remove()' data-ajax-confirm='Bạn có chắc xóa bản ghi này?' data-ajax-method='Delete'><i class='material-icons'>delete</i> <span>Xóa</span> </a>" +
-                    "<button type='button' class='btn btn-success waves-effect' data-toggle='modal' data-target='#exampleModal' onclick='ChamDiemTuLuan'>Chấm điểm tự luận</ button > ";
+                string uid = "<a href = '/Admin/Thread/SDelete/" + dd + "' class='btn btn-danger waves-effect' data-ajax='true' data-ajax-complete='$('#" + dd + "').remove()' data-ajax-confirm='Bạn có chắc xóa bản ghi này?' data-ajax-method='Delete'><i class='material-icons'>delete</i> <span>Xóa</span> </a>";
 
                 data.Add(new JsonRoomDataModel()
                 {
@@ -420,30 +429,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpDelete]
-
-        //Tự luận
-        public ActionResult ChamDiemTuLuan(int id)
-        {
-            var lop = new ThreadDao().ViewDetail(id);
-            if (lop == null) return View("Error");
-            else
-            {
-                var dao = new AdminDao();
-                var session = (AdminLogin)Session[CommonConstants.USER_SESSION];
-                if (session.id_permission == 0)
-                    return View("Error");
-                var dao1 = new ThreadDao();
-                var list_exam = dao1.ListAllQuestion(id).Where(x => x.is_essay == 1);
-                return View(list_exam);
-            }
-        }
-
-        public void LuuDiemTuLuan(int id_question, int id_exam, int id_student, float diem)
-        {
-            var abc = new QuestionDao().GetStudent_Thread_Detail(id_question, id_exam, id_student);
-            abc.ForEach(x => x.score = diem);
-        }
-
+        
         public void SDelete(string id)
         {
             var id_exam = id.Split('i')[0];
@@ -453,7 +439,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             {
 
             }
-            // return RedirectToAction("OpenRoom");
+           // return RedirectToAction("OpenRoom");
         }
 
         [HttpGet]

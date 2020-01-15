@@ -443,6 +443,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 var dao = new QuestionDao();
 
                 collection.question_content = System.Net.WebUtility.HtmlDecode(collection.question_content);
+                collection.A = System.Net.WebUtility.HtmlDecode(collection.A);
                 collection.is_essay = 1;
                 collection.is_change = 0;
                 collection.B = "-1";
@@ -481,7 +482,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
                 return View("Error");
             ViewBag.AdminName = session.name;
             var dao1 = new QuestionDao().ViewDetail(id);
-            if (dao1 == null) return View("Error");
+            if (dao1 == null || dao1.is_essay == 0) return View("Error");
             else
             {
                 var dao3 = new ThematicDao().ViewDetail(dao1.id_thematic);
@@ -505,7 +506,8 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
             ViewBag.AdminName = session.name;
 
             var dao = new QuestionDao();
-
+            collection.correct_answer = System.Net.WebUtility.HtmlDecode(collection.question_content);
+            collection.A = System.Net.WebUtility.HtmlDecode(collection.A);
             var id = dao.Update(collection);
             if (id)
             {
@@ -539,7 +541,7 @@ namespace DoAn_ThiTracNghiem_Complete.Areas.Admin.Controllers
 
 
             var dao1 = new QuestionDao().ViewDetail(id);
-            if (dao1 == null) return View("Error");
+            if (dao1 == null || dao1.is_essay == 1) return View("Error");
             else
             {
                 var dao3 = new ThematicDao().ViewDetail(dao1.id_thematic);

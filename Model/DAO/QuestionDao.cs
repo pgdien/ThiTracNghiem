@@ -175,25 +175,43 @@ namespace Model.Dao
             tmp.correct_answer = q.correct_answer;
             tmp.question_content = q.question_content;
             tmp.img = q.img;
+            tmp.is_essay = 0;
             db.QuestionOfExams.Add(tmp);
             db.SaveChanges();
         }
 
+        public void AddEssaysToExam(Question question, int id_exam)
+        {
+            QuestionOfExam tmp = new QuestionOfExam();
+            tmp.id_exam = id_exam;
+            tmp.id_question = question.id_question;
+            tmp.A = question.A;
+            tmp.B = question.B;
+            tmp.C = question.C;
+            tmp.D = question.D;
+            tmp.correct_answer = question.correct_answer;
+            tmp.question_content = question.question_content;
+            tmp.img = question.img;
+            tmp.is_essay = 1;
+            db.QuestionOfExams.Add(tmp);
+            db.SaveChanges();
+        }
+
+
         public List<Question> GetQuestionsByThematic(int id_thematic, int quest_of_thematic)
         {
             return (from x in db.Questions
-                    where x.id_thematic == id_thematic
+                    where x.id_thematic == id_thematic && x.is_essay ==0
                     orderby Guid.NewGuid()
                     select x).Take(quest_of_thematic).ToList();
         }
 
-        public List<Student_Thread_Detail> GetStudent_Thread_Detail(int id_question, int id_exam, int id_student)
+        public List<Question> GetEssayByThematic(int id_thematic, int quest_of_thematic)
         {
-            return (from a in db.Student_Thread_Detail
-                    where a.id_question == id_question &&
-                          a.id_exam == id_exam &&
-                          a.id_student == id_student
-                    select a).ToList();
+            return (from x in db.Questions
+                    where x.id_thematic == id_thematic && x.is_essay == 1
+                    orderby Guid.NewGuid()
+                    select x).Take(quest_of_thematic).ToList();
         }
 
         public Question ViewDetail(int id)
